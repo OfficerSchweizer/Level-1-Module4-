@@ -11,12 +11,7 @@ import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-
 import javax.imageio.ImageIO;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -37,18 +32,17 @@ public class MagicBox extends JPanel implements Runnable, MouseListener {
 	 * color of the current pixel.
 	 */
 
-	public JLabel loadImageFromTheInternet(String imageURL) throws MalformedURLException {
-		URL url = new URL(imageURL);
-		Icon icon = new ImageIcon(url);
-		return new JLabel(icon);
-	}
-
+	JLabel label = new JLabel();
+	JFrame frame = new JFrame("The Magic Box contains many secrets...");
+	JPanel panel = new JPanel();
 	BufferedImage backgroundImage;
+	MediaPalace media = new MediaPalace();
 
 	public static void main(String[] args) throws Exception {
 		SwingUtilities.invokeLater(new MagicBox());
-
+		
 	}
+	
 
 	@Override
 	public void run() {
@@ -61,8 +55,7 @@ public class MagicBox extends JPanel implements Runnable, MouseListener {
 	}
 
 	private void createUI() {
-		JFrame frame = new JFrame("The Magic Box contains many secrets...");
-		JPanel panel = new JPanel();
+		
 		panel.addMouseListener(this);
 		frame.addMouseListener(this);
 
@@ -90,14 +83,30 @@ public class MagicBox extends JPanel implements Runnable, MouseListener {
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
-		System.out.println(e.getX() + " " + e.getY());
+		System.out.println(e.getX() + "  " + e.getY());
+		System.out.println(backgroundImage.getRGB(e.getX(), e.getY()));
+		
+		
+		if (backgroundImage.getRGB(e.getX(), e.getY()) == -2113411) {
+			System.out.println("asdf");
+			media.speak("test");
+		}
+		
+		if (e.getX() > 200 &&  e.getX() < 450 && e.getY() > 300 && e.getY() < 450) {
+			System.out.println("asdf2");
+			JFrame frame2 = new JFrame();
+			
+		frame2.add(media.loadImageFromTheInternet("https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Salto_del_Angel-Canaima-Venezuela08.JPG/1200px-Salto_del_Angel-Canaima-Venezuela08.JPG"));
+		frame2.pack();
+		frame2.setVisible(true);
+		}
+		
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
 
-		System.out.println(e.getPoint());
 	}
 
 	@Override

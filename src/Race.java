@@ -5,8 +5,8 @@ public class Race {
 	public static  class Athlete {
 
 		static int nextBibNumber = 1;
-		static String raceLocation = "New York";
-		static String raceStartTime = "9.00am";
+		String raceLocation = "New York";
+		String raceStartTime = "9.00am";
 
 		String name;
 		int speed;
